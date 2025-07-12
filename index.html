@@ -1,0 +1,3586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="theme-color" content="#2abd69">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --dark: #0F0F0F;
+            --darker: #080808;
+            --light: #FFFFFF;
+            --gray: #7f8c8d;
+            --gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            --card-bg: #1a1a1a;
+            --card-border: rgba(46, 204, 113, 0.2);
+            --error: #e74c3c;
+            --warning: #f39c12;
+            --sidebar-width: 280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+        }
+        
+.create-account-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--light);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+}
+
+.create-account-btn:hover {
+    background: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+}
+
+.queue-message {
+    background: rgba(243, 156, 18, 0.1);
+    border: 1px solid rgba(243, 156, 18, 0.3);
+    color: var(--warning);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 16px;
+    display: none;
+}
+
+.queue-message p {
+    margin-bottom: 10px;
+}
+
+.queue-message-btn {
+    background: var(--gradient);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.queue-message-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+}
+
+
+.queue-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    justify-content: center;
+}
+
+
+.queue-line i {
+    font-size: 18px;
+}
+.register-message {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    color: var(--error);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 16px;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2abd69;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #2abd69;
+  border-radius: 10px;
+  border: 2px solid #2abd69;
+}
+
+html {
+  scrollbar-color: #2abd69 #2abd69;
+  scrollbar-width: thin;
+}
+.register-message-btn {
+    background: var(--gradient);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.register-message-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+}
+        @font-face {
+            font-family: 'Poppins';
+            src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            padding-bottom: 70px;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-areas:
+                "header header"
+                "main main";
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr;
+            min-height: 100vh;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        .header {
+            grid-area: header;
+            background: var(--gradient);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .logo i {
+            font-size: 24px;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        }
+
+        .user-balance {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            position: relative;
+        }
+
+        .balance-amount {
+            color: var(--light);
+            font-weight: 700;
+        }
+
+        .balance-add {
+            position: absolute;
+            right: -5px;
+            top: -5px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+            border: 2px solid var(--darker);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .balance-add:hover {
+            transform: scale(1.1);
+            background: var(--primary-dark);
+        }
+
+        .main-content {
+            grid-area: main;
+            padding: 15px;
+            background-color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .card h2, .card h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        #withdraw-section, #deposit-section {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .withdraw-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: var(--light);
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        #profile-section {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            border: 3px solid var(--primary);
+        }
+
+        .profile-info h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .profile-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .logout-btn {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 11px;
+            transition: all 0.3s;
+            padding: 6px 10px;
+            border-radius: 10px;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+
+        .nav-item.active, .nav-item:hover {
+            color: var(--primary);
+            background: rgba(46, 204, 113, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .winners-today {
+            background: rgba(46, 204, 113, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .winners-today h3 {
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .winners-today p {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 180px;
+            margin: 15px 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .withdraws-carousel {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        .withdraw-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 14px;
+        }
+
+        .withdraw-item:last-child {
+            border-bottom: none;
+        }
+
+        .withdraw-name {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .withdraw-amount {
+            font-weight: 700;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            border: 1px solid var(--card-border);
+            transition: all 0.3s;
+            position: relative;
+            aspect-ratio: 1/1;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .game-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 10px;
+            text-align: left;
+        }
+
+        .game-card h4 {
+            margin: 0;
+            font-size: 14px;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .game-provider {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .amount-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .amount-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--light);
+            padding: 8px 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .amount-btn:hover, .amount-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .payment-methods {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .payment-method i {
+            font-size: 20px;
+            margin-right: 12px;
+            color: var(--primary);
+        }
+
+        .payment-method h4 {
+            font-size: 15px;
+        }
+
+        .payment-method p {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .payment-form {
+            display: none;
+            margin-top: 15px;
+            animation: fadeIn 0.3s;
+        }
+
+        .qr-code-container {
+            text-align: center;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            background: white;
+            margin: 0 auto;
+            padding: 8px;
+            border-radius: 10px;
+        }
+
+        .show-more {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .show-more-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .show-more-btn:hover {
+            background: rgba(46, 204, 113, 0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            animation: modalFadeIn 0.4s;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 22px;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .modal-icon {
+            font-size: 45px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .modal h2 {
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .modal p {
+            margin-bottom: 15px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        @media (min-width: 768px) {
+            .logo {
+                font-size: 24px;
+            }
+            
+            .logo i {
+                font-size: 28px;
+            }
+            
+            .user-balance {
+                font-size: 16px;
+                padding: 8px 15px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .card h2, .card h3 {
+                font-size: 20px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .amount-buttons {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 10px;
+            }
+            
+            .amount-btn {
+                padding: 10px 5px;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px;
+            }
+            
+            .game-card h4 {
+                font-size: 16px;
+            }
+            
+            .withdraw-item {
+                font-size: 15px;
+            }
+            
+            .swiper {
+                height: 200px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .games-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .games-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .amount-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+            
+            .form-input {
+                padding: 14px 16px;
+                font-size: 16px;
+            }
+            
+            .modal-content {
+                padding: 15px;
+            }
+        }
+
+        .withdraw-process-container {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        .withdraw-process-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .withdraw-process-title {
+            font-size: 18px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .withdraw-process-amount {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1.5s ease-in-out;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: progressShine 2s infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-status {
+            text-align: center;
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .withdraw-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 16px;
+            animation: fadeIn 0.5s;
+        }
+
+        .withdraw-success {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: var(--primary);
+        }
+
+        .withdraw-warning {
+            background: rgba(243, 156, 18, 0.1);
+            border: 1px solid rgba(243, 156, 18, 0.3);
+            color: var(--warning);
+        }
+
+        .withdraw-error {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            color: var(--error);
+        }
+
+        .vip-promo {
+            background: rgba(155, 89, 182, 0.1);
+            border: 1px solid rgba(155, 89, 182, 0.3);
+            color: #9b59b6;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+.vip-gold-message {
+    background: rgba(241, 196, 15, 0.1);
+    border: 1px solid rgba(241, 196, 15, 0.3);
+    color: #f1c40f;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 16px;
+    display: none;
+}
+
+.vip-gold-message p {
+    margin-bottom: 10px;
+}
+
+.vip-gold-btn {
+    background: linear-gradient(135deg, #f1c40f, #f39c12);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.vip-gold-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(241, 196, 15, 0.4);
+}
+        .vip-promo h4 {
+            margin-bottom: 8px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .vip-promo p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .vip-btn {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .vip-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+        }
+
+        .withdraw-history {
+            margin-top: 20px;
+        }
+
+        .history-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .history-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .history-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(46, 204, 113, 0.2);
+        }
+
+        .history-amount {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .history-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary);
+        }
+
+        .history-status.pending {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+        }
+
+        .history-status.completed {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary);
+        }
+
+        .history-date {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        @keyframes processing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .processing-icon {
+            animation: processing 1.5s linear infinite;
+            display: inline-block;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+  .deposit-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.card-visual {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-visual::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+
+.card-logo {
+    align-self: flex-end;
+    font-size: 24px;
+    color: white;
+}
+
+.card-number {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: white;
+    margin: 15px 0;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.card-expiry, .card-name {
+    font-size: 14px;
+}
+
+.card-cvv {
+    background: rgba(255,255,255,0.2);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: var(--light);
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+}
+.deposit-method-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.deposit-method-card:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--primary);
+}
+
+.deposit-method-card.active {
+    background: rgba(46, 204, 113, 0.1);
+    border-color: var(--primary);
+}
+
+.deposit-method-icon {
+    font-size: 24px;
+    margin-right: 15px;
+    color: var(--primary);
+}
+
+.deposit-method-info h4 {
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.deposit-method-info p {
+    font-size: 13px;
+    color: var(--gray);
+}
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .message-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .message-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+            position: relative;
+            animation: modalFadeIn 0.3s;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .message-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .message-icon.success {
+            color: var(--primary);
+        }
+
+        .message-icon.error {
+            color: var(--error);
+        }
+
+        .message-icon.warning {
+            color: var(--warning);
+        }
+
+        .message-text {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .close-message {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .message-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .message-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .pix-type-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .pix-type-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--light);
+            padding: 8px 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .pix-type-btn:hover, .pix-type-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .input-group-prepend {
+            padding: 0 12px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .input-group .form-input {
+            background: transparent;
+            border: none;
+            flex: 1;
+        }
+
+        .game-categories {
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+
+        .game-category {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--light);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .game-category.active, .game-category:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .deposit-methods {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .deposit-method {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .deposit-method:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--primary);
+        }
+
+        .deposit-method i {
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .deposit-method h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .deposit-method p {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1400;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: var(--sidebar-width);
+            height: 100%;
+            background: var(--darker);
+            z-index: 1500;
+            transition: all 0.3s ease;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+            overflow-y: auto;
+        }
+
+        .sidebar-open {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--gradient);
+        }
+
+        .close-sidebar {
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .sidebar-content {
+            padding: 20px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 25px;
+        }
+
+        .sidebar-section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-section-title i {
+            font-size: 20px;
+        }
+
+        .download-app-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--light);
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .download-app-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 35px 10px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: var(--light);
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .search-btn {
+            display: none;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .category-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--light);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar-link i {
+            font-size: 20px;
+            width: 30px;
+            color: var(--primary);
+        }
+
+        .sidebar-link.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .sidebar-link.active i {
+            color: white;
+        }
+
+        .transaction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .transaction-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transaction-amount {
+            font-weight: 700;
+        }
+
+        .transaction-amount.win {
+            color: var(--primary);
+        }
+
+        .transaction-amount.loss {
+            color: var(--error);
+        }
+
+        .transaction-date {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .settings-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .settings-item h3 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .empty-games {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray);
+        }
+
+        .empty-games i {
+            font-size: 50px;
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+
+        .site-footer {
+            background: var(--darker);
+            padding: 30px 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 30px;
+        }
+
+        .footer-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .payment-method {
+            width: 60px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .games-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .view-all-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--light);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-all-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .providers-footer {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 5px;
+            background: var(--darker);
+            border-radius: 10px;
+            margin-top: 15px;
+            scrollbar-width: none;
+        }
+
+        .providers-footer::-webkit-scrollbar {
+            display: none;
+        }
+
+        .provider-logo {
+            min-width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+        }
+
+        .provider-logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .financial-info {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .info-label {
+            color: var(--gray);
+        }
+        
+        .info-value {
+            font-weight: 600;
+        }
+        
+        .info-value.positive {
+            color: var(--primary);
+        }
+        
+        .info-value.negative {
+            color: var(--error);
+        }
+        
+        .app-state {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-hat-wizard"></i>
+                <span>Mago.bet</span>
+            </div>
+            <span class="close-sidebar">&times;</span>
+        </div>
+        <div class="sidebar-content">
+            <button class="download-app-btn">
+                <i class="fas fa-download"></i>
+                Baixar App
+            </button>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Pesquisar jogos...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3 class="sidebar-section-title">
+                    <i class="fas fa-list"></i>
+                    Categorias
+                </h3>
+                <div class="categories">
+                    <button class="category-btn active" data-category="all">Todos</button>
+                    <button class="category-btn" data-category="slots">Slots</button>
+                    <button class="category-btn" data-category="live">Cassino Ao Vivo</button>
+                    <button class="category-btn" data-category="poker">Poker</button>
+                    <button class="category-btn" data-category="roulette">Roleta</button>
+                    <button class="category-btn" data-category="blackjack">Blackjack</button>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3 class="sidebar-section-title">
+                    <i class="fas fa-gamepad"></i>
+                    Jogos
+                </h3>
+                <a href="#" class="sidebar-link" data-section="popular-games-section">
+                    <i class="fas fa-fire"></i>
+                    <span>Populares</span>
+                </a>
+                <a href="#" class="sidebar-link" data-section="recent-games-section">
+                    <i class="fas fa-history"></i>
+                    <span>Recentes</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3 class="sidebar-section-title">
+                    <i class="fas fa-wallet"></i>
+                    Transações
+                </h3>
+                <a href="#" class="sidebar-link" data-section="deposit-section">
+                    <i class="fas fa-coins"></i>
+                    <span>Depositar</span>
+                </a>
+                <a href="#" class="sidebar-link" data-section="history-section">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Histórico</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3 class="sidebar-section-title">
+                    <i class="fas fa-user"></i>
+                    Conta
+                </h3>
+                <a href="#" class="sidebar-link" data-section="profile-section">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Perfil</span>
+                </a>
+
+                <a href="#" class="sidebar-link" data-section="settings-section">
+                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h2>Crie sua conta e ganhe R$ 10,00 de bônus!</h2>
+            <p>Preencha os campos abaixo para criar sua conta e começar a jogar.</p>
+            
+            <form id="register-form">
+                <div class="form-group">
+                    <label class="form-label">Nome Completo</label>
+                    <input type="text" class="form-input" id="register-name" placeholder="Seu nome completo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">E-mail</label>
+                    <input type="email" class="form-input" id="register-email" placeholder="seu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Telefone</label>
+                    <input type="tel" class="form-input" id="register-phone" placeholder="(00) 00000-0000" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Senha</label>
+                    <input type="password" class="form-input" id="register-password" placeholder="Crie uma senha" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Confirmar Senha</label>
+                    <input type="password" class="form-input" id="register-confirm-password" placeholder="Confirme sua senha" required>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-check"></i>
+                    Criar Conta e Ganhar R$ 10,00
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <header class="header">
+            <a href="#" class="logo">
+                <i class="fas fa-hat-wizard"></i>
+                <span>Mago.bet</span>
+            </a>
+            <div class="user-balance" id="user-balance" style="display: none;">
+                <i class="fas fa-wallet"></i>
+                <span class="balance-amount">R$ 0,00</span>
+                <div class="balance-add" id="open-deposit-btn">+</div>
+            </div>
+            <button class="create-account-btn" id="open-register-btn">Criar Conta</button>
+        </header>
+        
+        <main class="main-content">
+            <section id="home-section" class="section active">
+                <div id="register-message-home" class="register-message" style="display: none;">
+                    <p>Crie sua conta e ganhe R$ 10,00 de bônus para começar a jogar!</p>
+                    <button class="register-message-btn" id="register-btn-home">
+                        <i class="fas fa-user-plus"></i>
+                        Criar Conta
+                    </button>
+                </div>
+                
+                <div class="winners-today">
+                    <h3><i class="fas fa-trophy"></i> Ganhos de Hoje</h3>
+                    <p>Nossos usuários já ganharam <span style="color: var(--primary); font-weight: 700;">R$ 945.780,00</span> hoje!</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Anúncios</h3>
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="img/tigre2.png" alt="Promoção">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="img/mago2.png" alt="Novo Jogo">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="img/mago.jpg" alt="Bônus">
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Últimos Saques</h3>
+                    <div class="withdraws-carousel">
+                        <div class="withdraw-item">
+                            <span class="withdraw-name">Kaio Rian</span>
+                            <span class="withdraw-amount">R$ 5.000,00</span>
+                        </div>
+                        <div class="withdraw-item">
+                            <span class="withdraw-name">Ana Silva</span>
+                            <span class="withdraw-amount">R$ 3.000,00</span>
+                        </div>
+                        <div class="withdraw-item">
+                            <span class="withdraw-name">Carlos Souza</span>
+                            <span class="withdraw-amount">R$ 1.000,00</span>
+                        </div>
+                        <div class="withdraw-item">
+                            <span class="withdraw-name">Maria Oliveira</span>
+                            <span class="withdraw-amount">R$ 500,00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Jogos Populares</h3>
+                    <div class="game-categories">
+                        <div class="game-category active" data-provider="all">Todos</div>
+                        <div class="game-category" data-provider="pg">PG</div>
+                        <div class="game-category" data-provider="jile">JILE</div>
+                        <div class="game-category" data-provider="pp">PP</div>
+                        <div class="game-category" data-provider="jdb">JDB</div>
+                        <div class="game-category" data-provider="mg">MG</div>
+                    </div>
+                    <div class="games-grid" id="games-grid">
+                        <div class="game-card" data-provider="pg">
+                            <img src="img/tiger.png" alt="fortune tiger">
+                            <div class="game-info">
+                                <h4>Fortune Tiger</h4>
+                                <div class="game-provider">PG</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pg">
+                            <img src="img/ox.png" alt="Fortune Ox">
+                            <div class="game-info">
+                                <h4>Fortune Ox</h4>
+                                <div class="game-provider">PG</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pg">
+                            <img src="img/rat.png" alt="Fortune Rabbit">
+                            <div class="game-info">
+                                <h4>Fortune Rabbit</h4>
+                                <div class="game-provider">PG </div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pg">
+                            <img src="img/mouse.png" alt="Fortune Mouse">
+                            <div class="game-info">
+                                <h4>Fortune Mouse</h4>
+                                <div class="game-provider">PG</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pg">
+                            <img src="img/porco.png" alt="Lucky Piggy">
+                            <div class="game-info">
+                                <h4>Lucky Piggy</h4>
+                                <div class="game-provider">PG</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pg">
+                            <img src="img/bu.png" alt="Candy Burst">
+                            <div class="game-info">
+                                <h4>Candy Burst</h4>
+                                <div class="game-provider">PG</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pg">
+                            <img src="img/ga.png" alt="Ganesha Fortune">
+                            <div class="game-info">
+                                <h4>Ganesha Fortune</h4>
+                                <div class="game-provider">PG</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pg">
+                            <img src="img/panda.png" alt="Hip HopPanda">
+                            <div class="game-info">
+                                <h4>Hip HopPanda</h4>
+                                <div class="game-provider">PG</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pg">
+                            <img src="img/nego.png" alt="Journey to the Wealth">
+                            <div class="game-info">
+                                <h4>Journey to the Wealth</h4>
+                                <div class="game-provider">PG</div>
+                            </div>
+                        </div>
+                        
+                        <div class="game-card" data-provider="jile">
+                            <img src="img/Tree.png" alt="Fortune Tree">
+                            <div class="game-info">
+                                <h4>Fortune Tree</h4>
+                                <div class="game-provider">JILE</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="jile">
+                            <img src="img/Baby.png" alt="Cand Baby">
+                            <div class="game-info">
+                                <h4>Cand Baby</h4>
+                                <div class="game-provider">JILE</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="jile">
+                            <img src="img/Pig.png" alt="Fortune Pig">
+                            <div class="game-info">
+                                <h4>Fortune Pig</h4>
+                                <div class="game-provider">JILE</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="jile">
+                            <img src="img/Crazy.png" alt="Crazy777">
+                            <div class="game-info">
+                                <h4>Crazy777</h4>
+                                <div class="game-provider">JILE</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="jile">
+                            <img src="img/Crazyg.png" alt="CrazyGolden">
+                            <div class="game-info">
+                                <h4>CrazyGolden</h4>
+                                <div class="game-provider">JILE</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="jile">
+                            <img src="img/XiYang.png" alt="XiYangYang">
+                            <div class="game-info">
+                                <h4>XiYangYang</h4>
+                                <div class="game-provider">JILE</div>
+                            </div>
+                        </div>
+                    
+                        <div class="game-card" data-provider="pp">
+                            <img src="img/sp.png" alt="Spaceman">
+                            <div class="game-info">
+                                <h4>Spaceman</h4>
+                                <div class="game-provider">PP</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pp">
+                            <img src="img/pi.png" alt="Piggy Bank Bills">
+                            <div class="game-info">
+                                <h4>Piggy Bank Bills</h4>
+                                <div class="game-provider">PP</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pp">
+                            <img src="img/bon.png" alt="Big Bass Bonanza">
+                            <div class="game-info">
+                                <h4>Big Bass Bonanza</h4>
+                                <div class="game-provider">PP</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pp">
+                            <img src="img/Fire.png" alt="Fire Strike2">
+                            <div class="game-info">
+                                <h4>Fire Strike2</h4>
+                                <div class="game-provider">PP</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pp">
+                            <img src="img/gan.png" alt="Gates of Valhalla">
+                            <div class="game-info">
+                                <h4>Gates of Valhalla</h4>
+                                <div class="game-provider">PP</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="pp">
+                            <img src="img/tic.png" alt="Tic Tac Take">
+                            <div class="game-info">
+                                <h4>Tic Tac Take</h4>
+                                <div class="game-provider">PP</div>
+                            </div>
+                        </div>   
+                        <div class="game-card" data-provider="jdb">
+                            <img src="img/Drago.png" alt="Lucky Dragons">
+                            <div class="game-info">
+                                <h4>Lucky Dragon</h4>
+                                <div class="game-provider">JDB</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="jdb">
+                            <img src="img/Wu.png" alt="Wukong">
+                            <div class="game-info">
+                                <h4>Wukong</h4>
+                                <div class="game-provider">JDB</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="jdb">
+                            <img src="img/for.png" alt="Formosa Bear">
+                            <div class="game-info">
+                                <h4>Formosa Bear</h4>
+                                <div class="game-provider">JDB</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="jdb">
+                            <img src="img/sur.png" alt="Four Treasures">
+                            <div class="game-info">
+                                <h4>Four Treasures</h4>
+                                <div class="game-provider">JDB</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="jdb">
+                            <img src="img/saga.png" alt="Banana Saga">
+                            <div class="game-info">
+                                <h4>Banana Saga</h4>
+                                <div class="game-provider">JDB</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="jdb">
+                            <img src="img/coli.png" alt="Olympian Temple">
+                            <div class="game-info">
+                                <h4>Olympian Temple</h4>
+                                <div class="game-provider">JDB</div>
+                            </div>
+                        </div>
+                        
+                        <div class="game-card" data-provider="mg">
+                            <img src="img/Big.png" alt="Fishin Bigger">
+                            <div class="game-info">
+                                <h4>Fishin Bigger</h4>
+                                <div class="game-provider">MG</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="mg">
+                            <img src="img/Gold.png" alt="Gold Blitz">
+                            <div class="game-info">
+                                <h4>Gold Blitz</h4>
+                                <div class="game-provider">MG</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="mg">
+                            <img src="img/luc.png" alt="Lucky Twins">
+                            <div class="game-info">
+                                <h4>Lucky Twins</h4>
+                                <div class="game-provider">MG</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="mg">
+                            <img src="img/Mastercard.png" alt="Masters of Olympus">
+                            <div class="game-info">
+                                <h4>Masters of Olympus</h4>
+                                <div class="game-provider">MG</div>
+                            </div>
+                        </div>
+                        <div class="game-card" data-provider="mg">
+                            <img src="img/negro2.png" alt="Monkey Bonanza">
+                            <div class="game-info">
+                                <h4>Monkey Bonanza</h4>
+                                <div class="game-provider">MG</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="withdraw-section" class="section">
+                <div id="register-message-withdraw" class="register-message" style="display: none;">
+                    <p>Crie sua conta e ganhe R$ 10,00 de bônus para começar a jogar!</p>
+                    <button class="register-message-btn" id="register-btn-withdraw">
+                        <i class="fas fa-user-plus"></i>
+                        Criar Conta
+                    </button>
+                </div>
+                
+                <div class="withdraw-card" id="withdraw-content" style="display: none;">
+                    <h2 class="section-title">
+                        <i class="fas fa-wallet"></i>
+                        <span>Saque Rápido</span>
+                    </h2>
+                    
+                    <div class="amount-buttons">
+                        <button class="amount-btn" data-amount="1">R$ 1</button>
+                        <button class="amount-btn" data-amount="100">R$ 100</button>
+                        <button class="amount-btn" data-amount="500">R$ 500</button>
+                        <button class="amount-btn" data-amount="1000">R$ 1.000</button>
+                        <button class="amount-btn" data-amount="3000">R$ 3.000</button>
+                        <button class="amount-btn" data-amount="5000">R$ 5.000</button>
+                    </div>
+                    
+                    <form id="withdraw-form">
+                        <div class="form-group">
+                            <label class="form-label">Valor do Saque</label>
+                            <input type="text" class="form-input" id="withdraw-amount" placeholder="R$ 0,00" readonly>
+                        </div>
+                        
+                        <div class="pix-form-fields" id="pix-form-fields">
+                            <div class="form-group">
+                                <label class="form-label">Nome Completo</label>
+                                <input type="text" class="form-input" id="withdraw-name" placeholder="Seu nome completo" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Telefone</label>
+                                <input type="tel" class="form-input" id="withdraw-phone" placeholder="(00) 00000-0000" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">CPF</label>
+                                <input type="text" class="form-input" id="withdraw-cpf" placeholder="000.000.000-00" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Tipo de Chave PIX</label>
+                                <div class="pix-type-selector">
+                                    <button type="button" class="pix-type-btn active" data-type="cpf">CPF</button>
+                                    <button type="button" class="pix-type-btn" data-type="email">E-mail</button>
+                                    <button type="button" class="pix-type-btn" data-type="phone">Telefone</button>
+                                </div>
+                                <input type="text" class="form-input" id="pix-key" placeholder="Informe sua chave PIX" required>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn" id="submit-withdraw">
+                            <i class="fas fa-paper-plane"></i>
+                            Solicitar Saque
+                        </button>
+                    </form>
+
+                    <div class="withdraw-process-container" id="withdraw-process">
+                        <div class="withdraw-process-header">
+                            <div class="withdraw-process-title">
+                                <i class="fas fa-spinner processing-icon"></i>
+                                <span>Processando Saque</span>
+                            </div>
+                            <div class="withdraw-process-amount" id="process-amount">R$ 0,00</div>
+                        </div>
+
+                        <div class="progress-container">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+
+                        <div class="progress-status" id="progress-status">Iniciando processamento...</div>
+
+                        <div class="withdraw-message" id="withdraw-message" style="display: none;"></div>
+
+                        <div class="queue-message animated-fade-in" id="queue-message">
+                            <div class="queue-line">
+                                <i class="fas fa-user-clock"></i>
+                                <p>Olá <span id="user-name">usuário</span>, há <strong><span id="queue-count">14.000</span></strong> pessoas na fila de saque.</p>
+                            </div>
+                            <div class="queue-line">
+                                <i class="fas fa-hourglass-half"></i>
+                                <p>Isso pode levar vários dias.</p>
+                            </div>
+                            <div class="queue-line">
+                                <i class="fas fa-star"></i>
+                                <p>No <strong>Canal VIP</strong>, seu saque sai em até <strong>3 minutos</strong>.</p>
+                            </div>
+                            <div class="queue-line">
+                                <i class="fas fa-coins"></i>
+                                <p>Deposite qualquer valor e entre automaticamente no VIP.</p>
+                            </div>
+                            <button class="queue-message-btn" id="go-to-deposit-btn">
+                                <i class="fas fa-bolt"></i> Entrar no VIP
+                            </button>
+                        </div>
+                        <div class="vip-gold-message" id="vip-gold-message">
+                            <p>Parabéns! Você já é VIP.</p>
+                            <p>Ao fazer um novo depósito, você será promovido a VIP Gold e terá acesso exclusivo ao Canal VIP de Saques!</p>
+                            <p>Saques VIP Gold são processados em apenas 1 minuto!</p>
+                            <button class="vip-gold-btn" id="go-to-deposit-vip-btn">
+                                <i class="fas fa-gem"></i>
+                                Tornar-se VIP Gold
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="vip-promo" id="vip-promo" style="display: none;">
+                        <h4><i class="fas fa-crown"></i> Canal VIP de Saques</h4>
+                        <p>Pessoas na fila: <span id="vip-queue-count">15.000</span></p>
+                        <p>Saques VIP são processados em apenas 3 minutos!</p>
+                        <button class="vip-btn" id="vip-btn">
+                            <i class="fas fa-gem"></i>
+                            Torne-se VIP
+                        </button>
+                    </div>
+
+                    <div class="withdraw-history" id="withdraw-history">
+                        <h3 class="history-title">
+                            <i class="fas fa-history"></i>
+                            Histórico de Saques
+                        </h3>
+                        <div id="history-items">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="deposit-section" class="section">
+                <div id="register-message-deposit" class="register-message" style="display: none;">
+                    <p>Crie sua conta e ganhe R$ 10,00 de bônus para começar a jogar!</p>
+                    <button class="register-message-btn" id="register-btn-deposit">
+                        <i class="fas fa-user-plus"></i>
+                        Criar Conta
+                    </button>
+                </div>
+                
+                <div class="withdraw-card" id="deposit-content" style="display: none;">
+                    <h2 class="section-title">
+                        <i class="fas fa-coins"></i>
+                        <span>Depósito Seguro</span>
+                    </h2>
+                    
+                    <div class="amount-buttons">
+                        <button class="amount-btn" data-amount="20">R$ 20</button>
+                        <button class="amount-btn" data-amount="30">R$ 30</button>
+                        <button class="amount-btn" data-amount="50">R$ 50</button>
+                        <button class="amount-btn" data-amount="100">R$ 100</button>
+                        <button class="amount-btn" data-amount="1000">R$ 1.000</button>
+                        <button class="amount-btn" data-amount="3000">R$ 3.000</button>
+                        <button class="amount-btn" data-amount="5000">R$ 5.000</button>
+                    </div>
+                    
+                    <form id="deposit-form">
+                        <div class="form-group">
+                            <label class="form-label">Valor do Depósito</label>
+                            <input type="text" class="form-input" id="deposit-amount" placeholder="R$ 0,00" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Método de Pagamento</label>
+                            <div class="deposit-form-container">
+                                <div class="deposit-method-card" data-method="pix">
+                                    <i class="fas fa-qrcode deposit-method-icon"></i>
+                                    <div class="deposit-method-info">
+                                        <h4>PIX</h4>
+                                        <p>Pagamento instantâneo</p>
+                                    </div>
+                                </div>
+                                <div class="deposit-method-card" data-method="card">
+                                    <i class="fas fa-credit-card deposit-method-icon"></i>
+                                    <div class="deposit-method-info">
+                                        <h4>Cartão de Crédito/Débito</h4>
+                                        <p>Visa, Mastercard, etc</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="pix-form" class="payment-form">
+                            <div class="processing-pix" id="processing-pix">
+                                <i class="fas fa-spinner"></i>
+                                <h4>Processando seu pedido</h4>
+                                <p>Aguarde enquanto preparamos seu QR Code PIX...</p>
+                            </div>
+                            
+                            <div class="pix-instructions" id="pix-instructions" style="display: none;">
+                                <h4><i class="fas fa-qrcode"></i> Como pagar com PIX</h4>
+                                <ol>
+                                    <li>Abra o aplicativo do seu banco</li>
+                                    <li>Selecione a opção PIX</li>
+                                    <li>Escaneie o QR Code abaixo ou copie o código</li>
+                                    <li>Confirme o pagamento</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="qr-code-container" id="pix-qr-code" style="display: none;">
+                                <div class="qr-code">
+                                    <img src="https://via.placeholder.com/200/ffffff/000000?text=QR+CODE" alt="QR Code">
+                                </div>
+                                <p style="margin-top: 15px;">Ou copie o código abaixo:</p>
+                                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px; margin: 10px 0;">
+                                    <code id="pix-code">00020126580014BR.GOV.BCB.PIX0136123e4567-e12b-12d1-a456-426655440000520400005303986540510.005802BR5913FULANO DE TAL6008BRASILIA62070503***6304A2F3</code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="card-form" class="payment-form">
+                            <div class="card-visual">
+                                <div class="card-logo">
+                                    <i class="fab fa-cc-visa"></i>
+                                </div>
+                                <div class="card-number" id="card-number-visual">•••• •••• •••• ••••</div>
+                                <div class="card-details">
+                                    <div>
+                                        <div class="card-name">NOME NO CARTÃO</div>
+                                        <div class="card-expiry">MM/AA</div>
+                                    </div>
+                                    <div class="card-cvv">CVV</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Número do Cartão</label>
+                                <input type="text" class="form-input" id="card-number" placeholder="0000 0000 0000 0000" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Nome no Cartão</label>
+                                <input type="text" class="form-input" id="card-name" placeholder="Como no cartão" required>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div class="form-group">
+                                    <label class="form-label">Validade</label>
+                                    <input type="text" class="form-input" id="card-expiry" placeholder="MM/AA" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">CVV</label>
+                                    <input type="text" class="form-input" id="card-cvv" placeholder="000" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn" id="confirm-deposit">
+                            <i class="fas fa-check-circle"></i>
+                            Confirmar Depósito
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="profile-section" class="section">
+                <div id="register-message-profile" class="register-message" style="display: none;">
+                    <p>Crie sua conta e ganhe R$ 10,00 de bônus para começar a jogar!</p>
+                    <button class="register-message-btn" id="register-btn-profile">
+                        <i class="fas fa-user-plus"></i>
+                        Criar Conta
+                    </button>
+                </div>
+                
+                <div class="withdraw-card" id="profile-content" style="display: none;">
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="profile-avatar">J</div>
+                        <div class="profile-info">
+                            <h2 id="profile-name">João Silva</h2>
+                            <p id="profile-email">joao@exemplo.com</p>
+                            <p id="profile-phone">(11) 98765-4321</p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-card">
+                            <div class="stat-value" id="profile-balance">R$ 0,00</div>
+                            <div class="stat-label">Saldo Atual</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="profile-deposits">R$ 0,00</div>
+                            <div class="stat-label">Total Depositado</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="profile-withdraws">R$ 0,00</div>
+                            <div class="stat-label">Total Sacado</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="profile-games">0</div>
+                            <div class="stat-label">Jogos Jogados</div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button class="btn" id="open-deposit">
+                            <i class="fas fa-coins"></i>
+                            Depositar
+                        </button>
+                        <button class="btn" id="open-withdraw">
+                            <i class="fas fa-wallet"></i>
+                            Sacar
+                        </button>
+                    </div>
+                    
+                    <button class="btn logout-btn" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair da Conta
+                    </button>
+                </div>
+            </section>
+        </main>
+        
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active" data-section="home-section">
+                <i class="fas fa-home"></i>
+                <span>Início</span>
+            </a>
+            <a href="#" class="nav-item" data-section="withdraw-section">
+                <i class="fas fa-wallet"></i>
+                <span>Sacar</span>
+            </a>
+            <a href="#" class="nav-item" data-section="deposit-section">
+                <i class="fas fa-coins"></i>
+                <span>Depositar</span>
+            </a>
+            <a href="#" class="nav-item" data-section="profile-section">
+                <i class="fas fa-user"></i>
+                <span>Perfil</span>
+            </a>
+            <a href="#" class="nav-item" id="menu-button">
+                <i class="fas fa-bars"></i>
+                <span>Mais</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="message-modal" id="message-modal">
+        <div class="message-content">
+            <span class="close-message">&times;</span>
+            <div class="message-icon" id="message-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="message-text" id="message-text">Mensagem de exemplo</div>
+            <button class="message-btn" id="message-btn">OK</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+        function updateUI() {
+            if (isLoggedIn) {
+                document.getElementById('user-balance').style.display = 'flex';
+                document.getElementById('open-register-btn').style.display = 'none';
+                
+                document.getElementById('withdraw-content').style.display = 'block';
+                document.getElementById('deposit-content').style.display = 'block';
+                document.getElementById('profile-content').style.display = 'block';
+                
+                document.getElementById('register-message-home').style.display = 'none';
+                document.getElementById('register-message-withdraw').style.display = 'none';
+                document.getElementById('register-message-deposit').style.display = 'none';
+                document.getElementById('register-message-profile').style.display = 'none';
+                
+                const userData = JSON.parse(localStorage.getItem('userData'));
+                if (userData) {
+                    document.getElementById('profile-name').textContent = userData.name;
+                    document.getElementById('profile-email').textContent = userData.email;
+                    document.getElementById('profile-phone').textContent = userData.phone;
+                    document.getElementById('profile-avatar').textContent = userData.name.charAt(0).toUpperCase();
+                    
+                    document.getElementById('user-name').textContent = userData.name.split(' ')[0];
+                    
+                    document.querySelector('.balance-amount').textContent = `R$ ${userData.balance.toFixed(2).replace('.', ',')}`;
+                    document.getElementById('profile-balance').textContent = `R$ ${userData.balance.toFixed(2).replace('.', ',')}`;
+                    document.getElementById('profile-deposits').textContent = `R$ ${userData.totalDeposits.toFixed(2).replace('.', ',')}`;
+                    document.getElementById('profile-withdraws').textContent = `R$ ${userData.totalWithdraws.toFixed(2).replace('.', ',')}`;
+                    document.getElementById('profile-games').textContent = userData.gamesPlayed;
+                }
+                
+                document.getElementById('queue-message').style.display = 'none';
+            } else {
+                document.getElementById('user-balance').style.display = 'none';
+                document.getElementById('open-register-btn').style.display = 'block';
+                
+                document.getElementById('withdraw-content').style.display = 'none';
+                document.getElementById('deposit-content').style.display = 'none';
+                document.getElementById('profile-content').style.display = 'none';
+                
+                document.getElementById('register-message-home').style.display = 'block';
+                document.getElementById('register-message-withdraw').style.display = 'block';
+                document.getElementById('register-message-deposit').style.display = 'block';
+                document.getElementById('register-message-profile').style.display = 'block';
+            }
+        }
+
+        document.getElementById('open-register-btn').addEventListener('click', function() {
+            document.getElementById('register-modal').style.display = 'flex';
+        });
+
+        document.getElementById('register-btn-home').addEventListener('click', function() {
+            document.getElementById('register-modal').style.display = 'flex';
+        });
+
+        document.getElementById('register-btn-withdraw').addEventListener('click', function() {
+            document.getElementById('register-modal').style.display = 'flex';
+        });
+
+        document.getElementById('register-btn-deposit').addEventListener('click', function() {
+            document.getElementById('register-modal').style.display = 'flex';
+        });
+
+        document.getElementById('register-btn-profile').addEventListener('click', function() {
+            document.getElementById('register-modal').style.display = 'flex';
+        });
+
+        document.querySelector('.close-modal').addEventListener('click', function() {
+            document.getElementById('register-modal').style.display = 'none';
+        });
+
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const phone = document.getElementById('register-phone').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            
+            if (!name || !email || !phone || !password || !confirmPassword) {
+                showModalMessage('Por favor, preencha todos os campos.', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showModalMessage('As senhas não coincidem.', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showModalMessage('A senha deve ter pelo menos 6 caracteres.', 'error');
+                return;
+            }
+            
+            let formattedPhone = phone.replace(/\D/g, '');
+            if (formattedPhone.length < 11) {
+                showModalMessage('Por favor, informe um telefone válido com DDD.', 'error');
+                return;
+            }
+            
+            const userData = {
+                name: name,
+                email: email,
+                phone: `(${formattedPhone.substring(0, 2)}) ${formattedPhone.substring(2, 7)}-${formattedPhone.substring(7)}`,
+                balance: 10.00,
+                totalDeposits: 0.00,
+                totalWithdraws: 0.00,
+                gamesPlayed: 0,
+                hasMadeFirstWithdraw: false
+            };
+            
+            localStorage.setItem('userData', JSON.stringify(userData));
+            localStorage.setItem('isLoggedIn', 'true');
+            isLoggedIn = true;
+            
+            document.getElementById('register-modal').style.display = 'none';
+            
+            updateUI();
+            
+            showModalMessage('Conta criada com sucesso! Você ganhou R$ 10,00 de bônus.', 'success');
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userData');
+            localStorage.removeItem('currentWithdraw');
+            localStorage.removeItem('hasDeposited');
+            localStorage.removeItem('hasWithdrawn');
+            localStorage.removeItem('isVip');
+            
+            isLoggedIn = false;
+            
+            updateUI();
+            
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            
+            document.querySelector('[data-section="home-section"]').classList.add('active');
+            
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById('home-section').classList.add('active');
+            
+            showModalMessage('Você saiu da sua conta. Para continuar jogando, crie uma nova conta.', 'info');
+        });
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelectorAll('.nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+                
+                this.classList.add('active');
+                
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+                
+                window.scrollTo(0, 0);
+            });
+        });
+
+        const swiper = new Swiper('.swiper', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+
+        document.querySelectorAll('#withdraw-section .amount-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#withdraw-section .amount-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const amount = this.getAttribute('data-amount');
+                document.getElementById('withdraw-amount').value = `R$ ${amount},00`;
+                
+                document.getElementById('pix-form-fields').classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('#deposit-section .amount-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#deposit-section .amount-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const amount = this.getAttribute('data-amount');
+                document.getElementById('deposit-amount').value = `R$ ${amount},00`;
+            });
+        });
+
+        document.querySelectorAll('.pix-type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.pix-type-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const type = this.getAttribute('data-type');
+                const pixKeyInput = document.getElementById('pix-key');
+                
+                switch(type) {
+                    case 'cpf':
+                        pixKeyInput.placeholder = '000.000.000-00';
+                        break;
+                    case 'email':
+                        pixKeyInput.placeholder = 'seu@email.com';
+                        break;
+                    case 'phone':
+                        pixKeyInput.placeholder = '(00) 00000-0000';
+                        break;
+                }
+            });
+        });
+
+        document.getElementById('withdraw-cpf').addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            
+            if (value.length > 3) {
+                value = value.substring(0, 3) + '.' + value.substring(3);
+            }
+            if (value.length > 7) {
+                value = value.substring(0, 7) + '.' + value.substring(7);
+            }
+            if (value.length > 11) {
+                value = value.substring(0, 11) + '-' + value.substring(11);
+            }
+            if (value.length > 14) {
+                value = value.substring(0, 14);
+            }
+            
+            this.value = value;
+        });
+
+        document.getElementById('withdraw-phone').addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                value = '(' + value.substring(0, 2) + ') ' + value.substring(2);
+            }
+            if (value.length > 10) {
+                value = value.substring(0, 10) + '-' + value.substring(10);
+            }
+            if (value.length > 15) {
+                value = value.substring(0, 15);
+            }
+            
+            this.value = value;
+        });
+
+        function showModalMessage(message, type, icon = null) {
+            const modal = document.getElementById('message-modal');
+            const messageText = document.getElementById('message-text');
+            const messageIcon = document.getElementById('message-icon');
+            
+            messageText.textContent = message;
+            
+            messageIcon.className = 'message-icon';
+            
+            if (type === 'success') {
+                messageIcon.classList.add('success');
+                messageIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+            } else if (type === 'error') {
+                messageIcon.classList.add('error');
+                messageIcon.innerHTML = '<i class="fas fa-times-circle"></i>';
+            } else if (type === 'warning') {
+                messageIcon.classList.add('warning');
+                messageIcon.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+            } else if (icon) {
+                messageIcon.innerHTML = `<i class="fas fa-${icon}"></i>`;
+            }
+            
+            modal.style.display = 'flex';
+            
+            document.getElementById('message-btn').onclick = function() {
+                modal.style.display = 'none';
+            };
+            
+            document.querySelector('.close-message').onclick = function() {
+                modal.style.display = 'none';
+            };
+            
+            modal.onclick = function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+        }
+
+        document.getElementById('withdraw-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const withdrawAmount = document.getElementById('withdraw-amount').value;
+            const fullName = document.getElementById('withdraw-name').value;
+            const phone = document.getElementById('withdraw-phone').value;
+            const cpf = document.getElementById('withdraw-cpf').value;
+            const pixKey = document.getElementById('pix-key').value;
+            
+            if (!withdrawAmount || withdrawAmount === 'R$ 0,00') {
+                showModalMessage('Por favor, selecione um valor para saque.', 'error');
+                return;
+            }
+            
+            if (!fullName) {
+                showModalMessage('Por favor, informe seu nome completo.', 'error');
+                return;
+            }
+            
+            if (!phone || phone.replace(/\D/g, '').length < 11) {
+                showModalMessage('Por favor, informe um telefone válido com DDD.', 'error');
+                return;
+            }
+            
+            if (!cpf || cpf.replace(/\D/g, '').length < 11) {
+                showModalMessage('Por favor, informe um CPF válido.', 'error');
+                return;
+            }
+            
+            if (!pixKey) {
+                showModalMessage('Por favor, informe sua chave PIX.', 'error');
+                return;
+            }
+            
+            if (localStorage.getItem('currentWithdraw')) {
+                showModalMessage('Você já tem um saque em processamento. Aguarde a conclusão para solicitar outro.', 'warning');
+                return;
+            }
+            
+            const amountValue = parseFloat(withdrawAmount.replace('R$ ', '').replace('.', '').replace(',', '.'));
+            
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            const currentBalance = userData.balance;
+            
+            if (amountValue > currentBalance) {
+                showModalMessage('Saldo insuficiente para realizar este saque.', 'error');
+                return;
+            }
+            
+            const hasDeposited = localStorage.getItem('hasDeposited') === 'true';
+            const firstWithdraw = !userData.hasMadeFirstWithdraw;
+            
+            if (firstWithdraw && !hasDeposited) {
+                showModalMessage(
+                    'Olá usuário, os saques são disponíveis apenas para membros VIP. Faça um depósito de qualquer valor para se tornar VIP e liberar a função de saque.',
+                    'warning',
+                    'crown'
+                );
+                return;
+            }
+            
+            if (firstWithdraw && amountValue > 1) {
+                showModalMessage(
+                    'Olá usuário, como é seu primeiro saque, tente sacar o menor valor (R$1) para que o banco de dados carregue seus dados corretamente.',
+                    'warning'
+                );
+                return;
+            }
+            
+            this.style.display = 'none';
+            document.getElementById('withdraw-process').style.display = 'block';
+            document.getElementById('process-amount').textContent = withdrawAmount;
+            
+            startWithdrawProcess(amountValue, withdrawAmount, pixKey, fullName, phone, cpf);
+        });
+
+        function startWithdrawProcess(amountValue, withdrawAmount, pixKey, fullName, phone, cpf) {
+            const progressBar = document.getElementById('progress-bar');
+            const progressStatus = document.getElementById('progress-status');
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            const isFirstWithdraw = !userData.hasMadeFirstWithdraw;
+
+            document.getElementById('queue-message').style.display = 'none';
+
+            const withdrawData = {
+                amount: amountValue,
+                formattedAmount: withdrawAmount,
+                pixKey: pixKey,
+                fullName: fullName,
+                phone: phone,
+                cpf: cpf,
+                progress: 0,
+                queuePosition: 15000,
+                timestamp: new Date().getTime(),
+                status: 'pending'
+            };
+
+            localStorage.setItem('currentWithdraw', JSON.stringify(withdrawData));
+            updateWithdrawHistory();
+
+            let progress = 0;
+            const interval = setInterval(() => {
+                if (withdrawData.queuePosition > 0) {
+                    withdrawData.queuePosition -= Math.floor(Math.random() * 3);
+                    if (withdrawData.queuePosition < 0) withdrawData.queuePosition = 0;
+                    
+                    document.getElementById('queue-count').textContent = withdrawData.queuePosition.toLocaleString('pt-BR');
+                }
+
+                if (isFirstWithdraw && amountValue === 1) {
+                    progress += 0.8;
+                    if (progress > 100) progress = 100;
+                } else if (isFirstWithdraw && amountValue > 1) {
+                    clearInterval(interval);
+                    showModalMessage('Como é seu primeiro saque, você deve sacar R$1 primeiro.', 'warning');
+                    resetWithdrawForm();
+                    return;
+                } else {
+                    if (progress < 50) {
+                        progress += 1;
+                    }
+                    if (progress >= 50) progress = 50;
+                }
+
+                progressStatus.textContent = getProgressMessage(progress);
+
+                if (!isFirstWithdraw && progress === 50) {
+                    document.getElementById('queue-message').style.display = 'block';
+                } else {
+                    document.getElementById('queue-message').style.display = 'none';
+                }
+
+                progressBar.style.width = `${progress}%`;
+                withdrawData.progress = progress;
+                localStorage.setItem('currentWithdraw', JSON.stringify(withdrawData));
+
+                if (progress === 100) {
+                    clearInterval(interval);
+                    
+                    userData.balance -= amountValue;
+                    userData.totalWithdraws += amountValue;
+                    
+                    if (isFirstWithdraw) {
+                        userData.hasMadeFirstWithdraw = true;
+                    }
+                    
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                    
+                    updateUI();
+                    
+                    showModalMessage('Saque solicitado com sucesso! Verifique seu banco em até 24 horas.', 'success');
+                    
+                    withdrawData.status = 'completed';
+                    withdrawData.completedAt = new Date().getTime();
+                    localStorage.setItem('currentWithdraw', JSON.stringify(withdrawData));
+                    updateWithdrawHistory();
+                    
+                    setTimeout(() => {
+                        localStorage.removeItem('currentWithdraw');
+                        resetWithdrawForm();
+                    }, 5000);
+                } else if (!isFirstWithdraw && progress === 50) {
+                    clearInterval(interval);
+                    
+                    showModalMessage('Seu saque está na fila. Torne-se VIP Premium para processamento imediato!', 'warning');
+                }
+            }, 100);
+        }
+
+        function getProgressMessage(progress) {
+            if (progress < 20) {
+                return 'Validando informações...';
+            } else if (progress < 40) {
+                return 'Processando solicitação...';
+            } else if (progress < 60) {
+                return 'Autorizando saque...';
+            } else if (progress < 80) {
+                return 'Aguardando na fila...';
+            } else {
+                return 'Quase lá...';
+            }
+        }
+
+        function resetWithdrawForm() {
+            document.getElementById('withdraw-form').style.display = 'block';
+            document.getElementById('withdraw-process').style.display = 'none';
+            
+            document.getElementById('queue-message').style.display = 'none';
+            
+            document.getElementById('vip-gold-message').style.display = 'none';
+            document.getElementById('progress-bar').style.width = '0%';
+            document.getElementById('withdraw-form').reset();
+            document.getElementById('pix-form-fields').classList.remove('active');
+            document.querySelectorAll('#withdraw-section .amount-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+        }
+
+        function updateWithdrawHistory() {
+            const historyContainer = document.getElementById('history-items');
+            historyContainer.innerHTML = '';
+            
+            const currentWithdraw = localStorage.getItem('currentWithdraw');
+            if (currentWithdraw) {
+                const withdraw = JSON.parse(currentWithdraw);
+                const date = new Date(withdraw.timestamp);
+                
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div>
+                        <div class="history-amount">${withdraw.formattedAmount}</div>
+                        <div class="history-date">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div>
+                    </div>
+                    <div class="history-status ${withdraw.status}">
+                        ${withdraw.status === 'completed' ? 'Concluído' : 'Em andamento'}
+                    </div>
+                `;
+                
+                historyItem.addEventListener('click', () => {
+                    showWithdrawDetails(withdraw);
+                });
+                
+                historyContainer.appendChild(historyItem);
+            }
+        }
+
+        function showWithdrawDetails(withdraw) {
+            document.getElementById('withdraw-form').style.display = 'none';
+            
+            document.getElementById('withdraw-process').style.display = 'block';
+            document.getElementById('process-amount').textContent = withdraw.formattedAmount;
+            
+            document.getElementById('progress-bar').style.width = `${withdraw.progress}%`;
+            
+            document.getElementById('progress-status').textContent = getProgressMessage(withdraw.progress);
+            
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            const isFirstWithdraw = !userData.hasMadeFirstWithdraw;
+            
+            if (!isFirstWithdraw && withdraw.progress === 50) {
+                document.getElementById('queue-message').style.display = 'block';
+                document.getElementById('queue-count').textContent = withdraw.queuePosition.toLocaleString('pt-BR');
+            }
+            
+            if (withdraw.status === 'completed') {
+                showModalMessage('Saque concluído com sucesso!', 'success');
+            }
+        }
+
+        document.getElementById('go-to-deposit-btn').addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            
+            document.querySelector('[data-section="deposit-section"]').classList.add('active');
+            
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById('deposit-section').classList.add('active');
+            
+            window.scrollTo(0, 0);
+        });
+
+        document.querySelectorAll('.deposit-method-card').forEach(method => {
+            method.addEventListener('click', function() {
+                document.querySelectorAll('.deposit-method-card').forEach(m => {
+                    m.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const methodType = this.getAttribute('data-method');
+                
+                document.querySelectorAll('.payment-form').forEach(form => {
+                    form.style.display = 'none';
+                });
+                
+                if (methodType === 'pix') {
+                    document.getElementById('processing-pix').style.display = 'block';
+                    
+                    setTimeout(() => {
+                        document.getElementById('processing-pix').style.display = 'none';
+                        document.getElementById('pix-instructions').style.display = 'block';
+                        document.getElementById('pix-qr-code').style.display = 'block';
+                    }, 2000);
+                } else if (methodType === 'card') {
+                    document.getElementById('card-form').style.display = 'block';
+                }
+            });
+        });
+
+        document.getElementById('card-number').addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                value = value.match(/.{1,4}/g).join(' ');
+                if (value.length > 19) value = value.substring(0, 19);
+            }
+            
+            this.value = value;
+            
+            const cardNumberVisual = document.getElementById('card-number-visual');
+            if (value) {
+                cardNumberVisual.textContent = value;
+            } else {
+                cardNumberVisual.textContent = '•••• •••• •••• ••••';
+            }
+        });
+
+        document.getElementById('card-expiry').addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            
+            if (value.length > 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2);
+                if (value.length > 5) value = value.substring(0, 5);
+            }
+            
+            this.value = value;
+            
+            const cardExpiry = document.querySelector('.card-expiry');
+            if (value) {
+                cardExpiry.textContent = value;
+            } else {
+                cardExpiry.textContent = 'MM/AA';
+            }
+        });
+
+        document.getElementById('card-name').addEventListener('input', function(e) {
+            const cardName = document.querySelector('.card-name');
+            if (this.value) {
+                cardName.textContent = this.value.toUpperCase();
+            } else {
+                cardName.textContent = 'NOME NO CARTÃO';
+            }
+        });
+
+        document.getElementById('card-cvv').addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 3) value = value.substring(0, 3);
+            this.value = value;
+            
+            const cardCvv = document.querySelector('.card-cvv');
+            if (value) {
+                cardCvv.textContent = value;
+            } else {
+                cardCvv.textContent = 'CVV';
+            }
+        });
+
+        document.getElementById('deposit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const depositAmount = document.getElementById('deposit-amount').value;
+            
+            if (!depositAmount || depositAmount === 'R$ 0,00') {
+                showModalMessage('Por favor, selecione um valor para depósito.', 'error');
+                return;
+            }
+            
+            const selectedMethod = document.querySelector('.deposit-method-card.active');
+            if (!selectedMethod) {
+                showModalMessage('Por favor, selecione um método de pagamento.', 'error');
+                return;
+            }
+            
+            const methodType = selectedMethod.getAttribute('data-method');
+            
+            if (methodType === 'card') {
+                const cardNumber = document.getElementById('card-number').value.replace(/\D/g, '');
+                const cardName = document.getElementById('card-name').value;
+                const cardExpiry = document.getElementById('card-expiry').value;
+                const cardCvv = document.getElementById('card-cvv').value;
+                
+                if (!cardNumber || cardNumber.replace(/\D/g, '').length < 16) {
+                    showModalMessage('Por favor, informe um número de cartão válido.', 'error');
+                    return;
+                }
+                
+                if (!cardName) {
+                    showModalMessage('Por favor, informe o nome no cartão.', 'error');
+                    return;
+                }
+                
+                if (!cardExpiry || cardExpiry.length < 5) {
+                    showModalMessage('Por favor, informe a validade do cartão.', 'error');
+                    return;
+                }
+                
+                if (!cardCvv || cardCvv.length < 3) {
+                    showModalMessage('Por favor, informe o CVV do cartão.', 'error');
+                    return;
+                }
+            }
+            
+            const amountValue = parseFloat(depositAmount.replace('R$ ', '').replace('.', '').replace(',', '.'));
+            
+            showModalMessage('Depósito processado com sucesso! O valor será creditado em sua conta em instantes.', 'success');
+            
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            userData.balance += amountValue;
+            userData.totalDeposits += amountValue;
+            
+            localStorage.setItem('hasDeposited', 'true');
+            
+            localStorage.setItem('userData', JSON.stringify(userData));
+            
+            updateUI();
+            
+            this.reset();
+            document.querySelectorAll('#deposit-section .amount-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+            document.querySelectorAll('.payment-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            document.getElementById('pix-qr-code').style.display = 'none';
+            document.getElementById('pix-instructions').style.display = 'none';
+            document.getElementById('processing-pix').style.display = 'none';
+            document.querySelectorAll('.deposit-method-card').forEach(m => {
+                m.classList.remove('active');
+            });
+            
+            document.getElementById('card-number-visual').textContent = '•••• •••• •••• ••••';
+            document.querySelector('.card-expiry').textContent = 'MM/AA';
+            document.querySelector('.card-name').textContent = 'NOME NO CARTÃO';
+            document.querySelector('.card-cvv').textContent = 'CVV';
+        });
+
+        document.getElementById('open-deposit').addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            
+            document.querySelector('[data-section="deposit-section"]').classList.add('active');
+            
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById('deposit-section').classList.add('active');
+            
+            window.scrollTo(0, 0);
+        });
+
+        document.getElementById('open-withdraw').addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            
+            document.querySelector('[data-section="withdraw-section"]').classList.add('active');
+            
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById('withdraw-section').classList.add('active');
+            
+            window.scrollTo(0, 0);
+        });
+
+        document.getElementById('open-deposit-btn').addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            
+            document.querySelector('[data-section="deposit-section"]').classList.add('active');
+            
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById('deposit-section').classList.add('active');
+            
+            window.scrollTo(0, 0);
+        });
+
+        document.querySelectorAll('.game-category').forEach(category => {
+            category.addEventListener('click', function() {
+                document.querySelectorAll('.game-category').forEach(cat => {
+                    cat.classList.remove('active');
+                });
+                
+                this.classList.add('active');
+                
+                const provider = this.getAttribute('data-provider');
+                const gameCards = document.querySelectorAll('.game-card');
+                
+                if (provider === 'all') {
+                    gameCards.forEach(card => {
+                        card.style.display = 'block';
+                    });
+                } else {
+                    gameCards.forEach(card => {
+                        if (card.getAttribute('data-provider') === provider) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+
+        const withdrawNames = ['Kaio Rian', 'Ana Silva', 'Carlos Souza', 'Maria Oliveira', 'Pedro Santos', 'Juliana Costa'];
+        const withdrawAmounts = ['500,00', '1.000,00', '2.500,00', '3.000,00', '5.000,00'];
+
+        function rotateWithdraws() {
+            const withdrawItems = document.querySelectorAll('.withdraw-item');
+            
+            withdrawItems.forEach(item => {
+                const randomName = withdrawNames[Math.floor(Math.random() * withdrawNames.length)];
+                const randomAmount = withdrawAmounts[Math.floor(Math.random() * withdrawAmounts.length)];
+                
+                item.querySelector('.withdraw-name').textContent = randomName;
+                item.querySelector('.withdraw-amount').textContent = `R$ ${randomAmount}`;
+            });
+        }
+
+        setInterval(rotateWithdraws, 5000);
+
+        window.addEventListener('load', function() {
+            updateUI();
+            updateWithdrawHistory();
+            
+            const currentWithdraw = localStorage.getItem('currentWithdraw');
+            if (currentWithdraw) {
+                const withdraw = JSON.parse(currentWithdraw);
+                
+                document.getElementById('withdraw-form').style.display = 'none';
+                
+                document.getElementById('withdraw-process').style.display = 'block';
+                document.getElementById('process-amount').textContent = withdraw.formattedAmount;
+                
+                document.getElementById('progress-bar').style.width = `${withdraw.progress}%`;
+                document.getElementById('progress-status').textContent = getProgressMessage(withdraw.progress);
+                
+                const userData = JSON.parse(localStorage.getItem('userData'));
+                const isFirstWithdraw = !userData.hasMadeFirstWithdraw;
+                
+                if (!isFirstWithdraw && withdraw.progress === 50) {
+                    document.getElementById('queue-message').style.display = 'block';
+                    document.getElementById('queue-count').textContent = withdraw.queuePosition.toLocaleString('pt-BR');
+                } else {
+                    document.getElementById('queue-message').style.display = 'none';
+                }
+                
+                if (withdraw.status === 'completed') {
+                    showModalMessage('Saque concluído com sucesso!', 'success');
+                }
+            }
+        });
+
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!isLoggedIn) {
+                    e.preventDefault();
+                    document.getElementById('register-modal').style.display = 'flex';
+                }
+            });
+        });
+
+        const menuButton = document.getElementById('menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.querySelector('.close-sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            sidebar.classList.add('sidebar-open');
+            overlay.classList.add('active');
+        });
+
+        closeSidebar.addEventListener('click', function() {
+            closeMenu();
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            
+            document.querySelector('[data-section="home-section"]').classList.add('active');
+            
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById('home-section').classList.add('active');
+        });
+
+        overlay.addEventListener('click', function() {
+            closeMenu();
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            
+            document.querySelector('[data-section="home-section"]').classList.add('active');
+            
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById('home-section').classList.add('active');
+        });
+
+        function closeMenu() {
+            sidebar.classList.remove('sidebar-open');
+            overlay.classList.remove('active');
+        }
+
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionId = this.getAttribute('data-section');
+                if (sectionId) {
+                    navigateToSection(sectionId);
+                }
+            });
+        });
+
+        function navigateToSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+            
+            closeMenu();
+        }
+
+        document.querySelector('.download-app-btn').addEventListener('click', function() {
+            showModalMessage('Baixe nosso aplicativo para uma experiência ainda melhor! Disponível na App Store e Google Play.', 'info');
+            closeMenu();
+        });
+
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.toLowerCase();
+                if (searchTerm) {
+                    filterGamesByName(searchTerm);
+                    closeMenu();
+                }
+            }
+        });
+
+        function filterGamesByName(searchTerm) {
+            const gamesGrid = document.getElementById('games-grid');
+            const gameCards = gamesGrid.querySelectorAll('.game-card');
+            
+            gameCards.forEach(card => {
+                const gameName = card.querySelector('h4').textContent.toLowerCase();
+                if (gameName.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('go-to-deposit-vip-btn').addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            
+            document.querySelector('[data-section="deposit-section"]').classList.add('active');
+            
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById('deposit-section').classList.add('active');
+            
+            window.scrollTo(0, 0);
+        });
+    </script>
+</body>
+</html>
